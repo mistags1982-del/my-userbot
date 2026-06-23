@@ -1,0 +1,18 @@
+import os
+from telethon import TelegramClient
+from config import api_id, api_hash
+
+# إعداد الجلسة
+client = TelegramClient('userbot', api_id, api_hash)
+
+# تحميل الإضافات تلقائياً من مجلد modules
+path = "modules"
+for file in os.listdir(path):
+    if file.endswith(".py") and file != "__init__.py":
+        import_name = f"modules.{file[:-3]}"
+        __import__(import_name)
+        print(f"تم تحميل القسم: {file}")
+
+print("السورس يعمل بكفاءة...")
+client.start()
+client.run_until_disconnected()
